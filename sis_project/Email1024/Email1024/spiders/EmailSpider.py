@@ -33,7 +33,7 @@ class EmailspiderSpider(scrapy.Spider):
                           meta={'topic_id': topic_id, 'block_name': block_name, 'topic_title': topic_title})
         if int(page_num) < self.max_pages:
             cur_url = response.url
-            num = 0 - len(page_num)
+            num = 0 - len(response_url_list[2])
             next_url = cur_url[:num] + str(int(page_num) + 1)
             yield Request(url=next_url, callback=self.parse_block_page, meta={'block_name': block_name}, dont_filter=True)
 
@@ -71,7 +71,7 @@ class EmailspiderSpider(scrapy.Spider):
         for item in a_list:
             if 'attachment' in item['href']:
                 idtorr = item['href'].split('=')[1]
-                topic_torrent_url = ROOT_URL + 'attachment.php?aid=' + idtorr
+                topic_torrent_url = ROOT_URL + 'attachment.php?aid=' + idtorr+'&clickDownload=1'
         torrent_download_url = topic_torrent_url
         fileItem = Email1024Item()
         fileItem['topic_title'] = topic_title

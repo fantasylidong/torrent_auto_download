@@ -25,25 +25,10 @@ class EmailHelper(object):
 
         for downItem in result:
             if downItem[0] == True:
-                filename = './' + FILES_STORE + '/' + downItem[1]['path']
+                filename = FILES_STORE + '/' + downItem[1]['path']
                 with open(filename, 'rb') as f:
                     attachfile = MIMEApplication(f.read())
                 filename = downItem[1]['path'].split('/')[-1]
                 attachfile.add_header('Content-Disposition', 'attachment', filename=filename)
                 encoders.encode_base64(attachfile)
                 message.attach(attachfile)
-
-        try:
-            smtpSSLClient = smtplib.SMTP(self.smtp_host, self.smtp_port)
-            loginRes = smtpSSLClient.login(self.smtp_user, self.smtp_pwd)
-            print(f"登录结果：loginRes = {loginRes}")
-            if loginRes and loginRes[0] == 235:
-                print(f"登录成功，code = {loginRes[0]}")
-                smtpSSLClient.sendmail(self.sender, self.toLst, message.as_string())
-                print(f"发送成功. message:{message.as_string()}")
-            else:
-                print(f"登陆失败，code = {loginRes[0]}")
-        except Exception as e:
-            print(f"发送失败，Exception: e={e}")
-
-        # print("-----------------------发送成功-----------------------")

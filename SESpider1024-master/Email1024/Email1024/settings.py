@@ -22,7 +22,7 @@ NEWSPIDER_MODULE = 'Email1024.spiders'
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 20
+CONCURRENT_REQUESTS = 5
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -94,9 +94,9 @@ ITEM_PIPELINES = {
 SPIDER_NAME = "SE1024Spider"
 ROOT_URL = "http://www.t66y.com/"        # 这里需要更新到最新的地址
 
-FILES_STORE = '/home/morzlee/output'         # 文件存储路径
+FILES_STORE = '/home/lee/programmer/output'         # 文件存储路径
 
-MAX_PAGES = 1              # 可手动设置最大爬取单个区最大页面数，相配多大就配多大
+MAX_PAGES = 2              # 可手动设置最大爬取单个区最大页面数，相配多大就配多大
 BLOCK_INFO = {
     15: "亚洲有码",
     2: "亚洲无码",
@@ -107,14 +107,13 @@ AUTHOR_NAME = {
     'hdt5jrk',
     'dioguitar23',
     'bluesky168',
-    '朝歌',
-    '8abc8'
+#    '朝歌',
+#    '8abc8'
 }
-                                    # 这里是用126邮箱做例子，并不局限126邮箱
-SMTP_HOST = "smtp.163.com"          # 发送邮件的smtp服务器
-SMTP_USER = "1@163.com"       # 用于登录smtp服务器的用户名，也就是发送者的邮箱
-SMTP_PWD = "1"             # 授权码，和用户名user一起，用于登录smtp， 非邮箱密码
-SMTP_PORT = 465                      # smtp服务器SSL端口号，默认是465，具体是什么，网上一搜邮箱域名和他的smtp就知道了
-SMTP_SENDER = "1@163.com"      # 发送方的邮箱
-SMTP_TO_LIST = ["1@1.edu.pl"]     # 发送目标邮箱地址，是个list
+SMTP_HOST = "smtp.163.com"  # 发送邮件的smtp服务器
+SMTP_USER = "fantasygood@163.com"  # 用于登录smtp服务器的用户名，也就是发送者的邮箱
+SMTP_PWD = "lidong123"  # 授权码，和用户名user一起，用于登录smtp， 非邮箱密码
+SMTP_PORT = 465  # smtp服务器SSL端口号，默认是465，具体是什么，网上一搜邮箱域名和他的smtp就知道了
+SMTP_SENDER = "fantasygood@163.com"  # 发送方的邮箱
+SMTP_TO_LIST = ["po382@aaedu.edu.pl"]  # 发送目标邮箱地址，是个list
 

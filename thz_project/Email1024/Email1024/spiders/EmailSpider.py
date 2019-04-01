@@ -10,6 +10,7 @@ class EmailspiderSpider(scrapy.Spider):
     name = SPIDER_NAME
     root_url = ROOT_URL
     max_pages = MAX_PAGES
+    page = 1
     def start_requests(self):
         for key in BLOCK_INFO:
             request_url = self.root_url + "forum-" + str(key) + "-1.html"
@@ -35,8 +36,8 @@ class EmailspiderSpider(scrapy.Spider):
                           meta={'topic_id': topic_id, 'block_name': block_name, 'topic_title': topic_title})
         if int(page_num) < self.max_pages:
             cur_url = response.url
-            num = 0 - len(page_num)
-            next_url = cur_url[:num] + str(int(page_num) + 1)
+            num = 0 - len(response_url_list[2])
+            next_url = cur_url[:num] + str(int(page_num) + 1) + '.html'
             yield Request(url=next_url, callback=self.parse_block_page, meta={'block_name': block_name}, dont_filter=True)
 
     def parse_poster_page(self, response):
@@ -71,7 +72,7 @@ class EmailspiderSpider(scrapy.Spider):
         topic_torrent_url = ""
         for item in a_list:
                 idtorr=item['href'].split('=')[1]
-                topic_torrent_url = 'http://thzbb.com/imc_attachad-ad.html?aid='+item['href'].split('=')[1]
+                topic_torrent_url = ROOT_URL+'/imc_attachad-ad.html?aid='+item['href'].split('=')[1]
         if topic_torrent_url != "":
             yield Request(url=topic_torrent_url, callback=self.parse_torrent_page,
                           meta={'topic_title': topic_title,
@@ -80,6 +81,7 @@ class EmailspiderSpider(scrapy.Spider):
                                 'topic_id': topic_id,
                                 'block_name': block_name,
                                 'author_name': author_name,
+                                'dont_filter' : True,
                                 'idtorr': idtorr})
 
     def parse_torrent_page(self, response):
